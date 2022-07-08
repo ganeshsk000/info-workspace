@@ -43,7 +43,6 @@ public class EmployeImpl implements EmployeeDAO {
 			System.out.println(e.getMessage());
 		} finally {
 			ConnectionProvider.closeConnection();
-			
 
 		}
 	}

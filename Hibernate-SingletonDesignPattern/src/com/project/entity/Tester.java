@@ -9,10 +9,11 @@ import com.project.employeeDAO.EmployeeDaoImpl;
 public class Tester {
 	public static void main(String[] args) {
 		EmployeeDaoImpl impl=new EmployeeDaoImpl();
-		impl.saveEmployeeDetails();
+//		impl.saveEmployeeDetails();
 //		impl.getEmployeeDetailsById();
 //		impl.updateEmployeeEntity();
 //		impl.deleteEmployeeEntity();
+		impl.getAllEmployee();
 	}
 
 }

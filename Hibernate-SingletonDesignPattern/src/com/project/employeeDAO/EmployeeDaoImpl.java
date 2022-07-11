@@ -1,12 +1,16 @@
 package com.project.employeeDAO;
 
+import java.util.List;
+
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.query.Query;
 
 import com.project.entity.Employee;
+import com.projectsessionfactoryprovider.SessionFactoryProvider;
 
 public class EmployeeDaoImpl implements EmployeeDAO {
 
@@ -17,14 +21,10 @@ public class EmployeeDaoImpl implements EmployeeDAO {
 		Session session=null;
 
 		try {
-			//insetead of configuraing employee.class in java,,we can do it by xml only,,,,,,,,,,
-//			configuration.addAnnotatedClass(Employee.class);
-			Configuration configuration=new Configuration();
-			configuration.configure("hibernate.cfg.xml");
-			 sessionFactory=configuration.buildSessionFactory();
+			sessionFactory=SessionFactoryProvider.getSessionFactory();
 			 session=sessionFactory.openSession();
 			session.beginTransaction();
-			Employee employee=new Employee(14, "Ravindra", "senier devoloper", 75000, 86546565455l, true);
+			Employee employee=new Employee( "prashanth", "senier devoloper", 75000, 86546565455l, true);
 			session.save(employee);
 			
 			session.getTransaction().commit();
@@ -36,20 +36,16 @@ public class EmployeeDaoImpl implements EmployeeDAO {
 			System.out.println(e.getMessage());
 		}
 		finally {
+			
+			
 			if(session!=null) {
-				System.out.println("session is closed,,,,,,,,,");
+				System.out.println("session is closed,,,,,,,");
 				session.close();
 			}
 			else {
 				System.out.println("session is not closed,,,,,,,,,,");
 			}
-			if(sessionFactory!=null) {
-				System.out.println("session factory is closed,,,,,,");
-				sessionFactory.close();
-			}
-			else {
-				System.out.println("session factroy is not closed,,,,,,,,,,,");
-			}
+			SessionFactoryProvider.CloseSessionFactory();
 		}
 		
 		
@@ -62,9 +58,7 @@ public class EmployeeDaoImpl implements EmployeeDAO {
 		SessionFactory sessionFactory=null;
 		Session session=null;
 		try {
-			Configuration configuration=new Configuration();
-			configuration.configure("hibernate.cfg.xml");
-			sessionFactory=configuration.buildSessionFactory();
+			sessionFactory=SessionFactoryProvider.getSessionFactory();
 			session=sessionFactory.openSession();
 			session.beginTransaction();
 			Employee employee=session.get(Employee.class, 5
@@ -82,13 +76,7 @@ public class EmployeeDaoImpl implements EmployeeDAO {
 			else {
 				System.out.println("session is not closed,,,,,,,,,,");
 			}
-			if(sessionFactory!=null) {
-				System.out.println("session factory is closed,,,,,,");
-				sessionFactory.close();
-			}
-			else {
-				System.out.println("session factroy is not closed,,,,,,,,,,,");
-			}
+			SessionFactoryProvider.CloseSessionFactory();
 		}
 	}
 
@@ -99,11 +87,9 @@ public class EmployeeDaoImpl implements EmployeeDAO {
 		Session session=null;
 		Transaction transction=null;
 		try {
-			Configuration configuration=new Configuration();
-			configuration.configure("Hibernate.cfg.xml");
-			sessionFactory=configuration.buildSessionFactory();
+			sessionFactory=SessionFactoryProvider.getSessionFactory();
 			session=sessionFactory.openSession(); 
-			Employee employee=session.get(Employee.class, 5);
+			Employee employee=session.get(Employee.class, 13);
 			System.out.println("EMployee Entity Before Updating: "+employee);
 			employee.setDesignation("Hr");
 			employee.setCantact_number(85349656443l);
@@ -130,13 +116,7 @@ public class EmployeeDaoImpl implements EmployeeDAO {
 			else {
 				System.out.println("session is not closed,,,,,,,,,,");
 			}
-			if(sessionFactory!=null) {
-				System.out.println("session factory is closed,,,,,,");
-				sessionFactory.close();
-			}
-			else {
-				System.out.println("session factroy is not closed,,,,,,,,,,,");
-			}
+			SessionFactoryProvider.CloseSessionFactory();
 		}
 
 	}
@@ -148,12 +128,10 @@ public class EmployeeDaoImpl implements EmployeeDAO {
 		Session session=null;
 		Transaction trans=null;
 		try {
-			Configuration config=new Configuration();
-			config.configure("hibernate.cfg.xml");
-			sessionFactory=config.buildSessionFactory();
+			sessionFactory=SessionFactoryProvider.getSessionFactory();
 			session=sessionFactory.openSession();
 			
-			Employee employee=session.get(Employee.class, 13);
+			Employee employee=session.get(Employee.class, 17);
 			System.out.println("Employee Enrtity: "+employee);
 			trans=session.beginTransaction();
 			session.delete(employee);
@@ -172,15 +150,37 @@ public class EmployeeDaoImpl implements EmployeeDAO {
 			else {
 				System.out.println("session is not closed,,,,,,,,,,");
 			}
-			if(sessionFactory!=null) {
-				System.out.println("session factory is closed,,,,,,");
-				sessionFactory.close();
-			}
-			else {
-				System.out.println("session factroy is not closed,,,,,,,,,,,");
-			}
+			SessionFactoryProvider.CloseSessionFactory();
 		}
 
 	}
 
+	@Override
+	public List<Employee> getAllEmployee() {
+		System.out.println("involked deleteEmployeeEnity()");
+		SessionFactory sessionFactory=null;
+		Session session=null;
+		
+		try {
+			sessionFactory=SessionFactoryProvider.getSessionFactory();
+			session=sessionFactory.openSession();
+			String hqlQuery="From Employee";
+			Query query=session.createQuery(hqlQuery);
+			List<Employee> list=query.list();
+			System.out.println("List of employee: "+list);
+			
+		}
+		catch(HibernateException e) {
+			System.out.println(e.getMessage());
+		}
+finally {
+	SessionFactoryProvider.CloseSessionFactory();
 }
+		return null;
+
+	}
+	
+}
+
+
+

@@ -38,18 +38,6 @@ public class Employee {
 
 	
 
-	public Employee(int id, String name, String designation, int salary, long cantact_number, boolean is_Trained) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.designation = designation;
-		this.salary = salary;
-		this.cantact_number = cantact_number;
-		this.is_Trained = is_Trained;
-	}
-
-
-
 	public Employee(String name, String designation, int salary, long cantact_number, boolean is_Trained) {
 		super();
 		this.name = name;

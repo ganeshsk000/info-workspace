@@ -13,9 +13,9 @@ public class Tester {
 //		impl.saveEmployeeEntity(employee);
 //		impl.getEmployeeEntityById(4);
 //		impl.getAllEmployeeEntity();
-//		impl.updateEmployeeDesignationById(5, "CEO");
-//	impl.updateEmployeeEntity(new Employee(15,"Rajesh","Senier Software Engineer", 87000, 56456435343l, false));
-	impl.deleteEmployeeEntity(14);
+//	impl.updateEmployeeDesignationById(13, "Java Devoloper");
+//	impl.updateEmployeeEntity(new Employee(13,"Ganesh","Java devoloper", 30000, 56456435343l, true));
+	impl.deleteEmployeeEntity(13);
 	}
 	
 

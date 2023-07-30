@@ -9,6 +9,7 @@ public class Refrigierator {
 	
 	{
 	
+		
 		name="LG pro";
 		color="Red";
 		brand="LG";

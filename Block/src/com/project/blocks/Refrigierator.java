@@ -8,6 +8,7 @@ public class Refrigierator {
 	long uniqueId;
 	
 	{
+	
 		name="LG pro";
 		color="Red";
 		brand="LG";
